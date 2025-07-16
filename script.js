@@ -56,7 +56,8 @@ for (let octave = startOctave; octave <= endOctave; octave++) {
     const blackNote = blackNotesMap[note];
     if (blackNote) {
       const fullBlackNote = `${note}${octave}_d`;
-      const leftPosition = whiteIndex * 40 + 28;
+      const leftPosition = whiteIndex * 40 + 40;
+
       createQuarterButton(fullBlackNote, blackQuarterControls);
       createKey(blackContainer, fullBlackNote, true, leftPosition);
     }
