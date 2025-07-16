@@ -1,0 +1,52 @@
+body {
+  margin: 0;
+  background-color: #f5f5f5;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.piano-container {
+  position: relative;
+  display: flex;
+}
+
+.white-keys {
+  display: flex;
+}
+
+.white-key {
+  width: 40px;
+  height: 200px;
+  background: white;
+  border: 1px solid black;
+  box-sizing: border-box;
+  position: relative;
+  z-index: 1;
+}
+
+.black-keys {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  pointer-events: none;
+}
+
+.black-key {
+  width: 25px;
+  height: 120px;
+  background: black;
+  position: absolute;
+  z-index: 2;
+  pointer-events: auto;
+}
+
+.white-key.active {
+  background-color: #ddd;
+}
+
+.black-key.active {
+  background-color: #444;
+}
