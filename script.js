@@ -21,7 +21,7 @@ const quarterToneMap = {}; // { noteName (lowercase): true/false }
 function createQuarterButton(noteName, targetContainer) {
   const btn = document.createElement("button");
   btn.className = "quarter-button";
-  btn.innerText = "¼";
+  btn.innerText = "💙";
   btn.title = `${noteName} quarter tone`;
 
   btn.addEventListener("click", () => {

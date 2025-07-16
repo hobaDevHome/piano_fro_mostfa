@@ -1,10 +1,11 @@
+/* Piano Styles */
 body {
   margin: 0;
   background-color: #f5f5f5;
   display: flex;
   flex-direction: column;
-  justify-content: center; /* توسيط رأسي */
-  align-items: center; /* توسيط أفقي */
+  justify-content: center;
+  align-items: center;
   height: 100vh;
 }
 
@@ -30,11 +31,19 @@ body {
   cursor: pointer;
   font-size: 14px;
   border-radius: 3px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
 .quarter-button.active {
   background-color: #ff9800;
   color: white;
+}
+
+.piano-outer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
 }
 
 .piano-container {
@@ -57,6 +66,12 @@ body {
   box-sizing: border-box;
   position: relative;
   z-index: 1;
+  box-shadow: inset -2px -2px 5px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.1s;
+}
+
+.white-key.active {
+  background-color: #ddd;
 }
 
 .black-keys {
@@ -73,12 +88,11 @@ body {
   background: black;
   position: absolute;
   z-index: 2;
-  margin-left: -12.5px;
   pointer-events: auto;
-}
-
-.white-key.active {
-  background-color: #ddd;
+  transform: translateX(-50%);
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.5);
+  border-radius: 2px;
+  transition: background-color 0.1s;
 }
 
 .black-key.active {
