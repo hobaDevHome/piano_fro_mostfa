@@ -40,6 +40,7 @@ body {
   background: black;
   position: absolute;
   z-index: 2;
+  margin-left: -12.5px;
   pointer-events: auto;
 }
 
@@ -49,4 +50,22 @@ body {
 
 .black-key.active {
   background-color: #444;
+}
+
+.quarter-toggle {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  font-size: 10px;
+  padding: 1px 3px;
+  border: none;
+  border-radius: 3px;
+  background-color: #ccc;
+  cursor: pointer;
+  z-index: 3;
+}
+
+.quarter-toggle.active {
+  background-color: #ff9800;
+  color: white;
 }

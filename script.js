@@ -14,43 +14,64 @@ const startOctave = 2;
 const endOctave = 3;
 let whiteIndex = 0;
 
-// من C2 إلى B3
+const quarterToneMap = {}; // { noteName (lowercase): true/false }
+
+// دالة لإنشاء مفتاح + زر تحكم ربع تون
+function createKey(container, noteName, isBlack = false, positionLeft = null) {
+  const key = document.createElement("div");
+  key.classList.add(isBlack ? "black-key" : "white-key");
+  key.dataset.note = noteName;
+
+  if (positionLeft !== null) {
+    key.style.left = `${positionLeft}px`;
+  }
+
+  const toggle = document.createElement("button");
+  toggle.className = "quarter-toggle";
+  toggle.innerText = "¼";
+  toggle.title = "Quarter tone on/off";
+
+  toggle.addEventListener("click", (e) => {
+    e.stopPropagation();
+    const lowered = noteName.toLowerCase();
+    quarterToneMap[lowered] = !quarterToneMap[lowered];
+    toggle.classList.toggle("active");
+  });
+
+  key.appendChild(toggle);
+  key.addEventListener("click", playNote);
+  container.appendChild(key);
+}
+
 for (let octave = startOctave; octave <= endOctave; octave++) {
   whiteNotes.forEach((note) => {
     const fullNote = `${note}${octave}`;
-    const whiteKey = document.createElement("div");
-    whiteKey.classList.add("white-key");
-    whiteKey.dataset.note = fullNote;
-    whiteKey.addEventListener("click", playNote);
-    whiteContainer.appendChild(whiteKey);
+    createKey(whiteContainer, fullNote, false);
 
     const blackNote = blackNotesMap[note];
     if (blackNote) {
-      const fullBlackNote = `${note}${octave}_d`; // new naming: e.g., c2_d
-      const blackKey = document.createElement("div");
-      blackKey.classList.add("black-key");
-      blackKey.dataset.note = fullBlackNote;
-      blackKey.style.left = `${whiteIndex * 40 + 28}px`;
-      blackKey.addEventListener("click", playNote);
-      blackContainer.appendChild(blackKey);
+      const fullBlackNote = `${note}${octave}_d`;
+      const leftPosition = whiteIndex * 40 + 28;
+      createKey(blackContainer, fullBlackNote, true, leftPosition);
     }
 
     whiteIndex++;
   });
 }
 
-// نضيف C4
-const finalKey = document.createElement("div");
-finalKey.classList.add("white-key");
-finalKey.dataset.note = "C4";
-finalKey.addEventListener("click", playNote);
-whiteContainer.appendChild(finalKey);
+// إضافة C4
+createKey(whiteContainer, "C4", false);
 
 function playNote(e) {
-  const note = e.target.dataset.note.toLowerCase(); // make everything lowercase
-  const audio = new Audio(`sounds/${note}.mp3`);
+  const key = e.currentTarget;
+  const rawNote = key.dataset.note.toLowerCase();
+  const isQuarter = quarterToneMap[rawNote];
+  const finalNote = isQuarter ? `${rawNote}_q` : rawNote;
+
+  const audio = new Audio(`sounds/${finalNote}.mp3`);
   audio.play();
 
-  e.target.classList.add("active");
-  setTimeout(() => e.target.classList.remove("active"), 150);
+  key.classList.add("active");
+  setTimeout(() => key.classList.remove("active"), 150);
+  console.log("Playing:", finalNote);
 }
