@@ -12,8 +12,8 @@ const blackContainer = document.getElementById("black-keys");
 const whiteQuarterControls = document.getElementById("quarter-controls-white");
 const blackQuarterControls = document.getElementById("quarter-controls-black");
 
-const startOctave = 2;
-const endOctave = 3;
+const startOctave = 1;
+const endOctave = 2;
 let whiteIndex = 0;
 
 const quarterToneMap = {}; // { noteName (lowercase): true/false }
@@ -67,8 +67,8 @@ for (let octave = startOctave; octave <= endOctave; octave++) {
 }
 
 // آخر مفتاح أبيض: C4
-createQuarterButton("C4", whiteQuarterControls);
-createKey(whiteContainer, "C4", false);
+createQuarterButton("C3", whiteQuarterControls);
+createKey(whiteContainer, "C3", false);
 
 function playNote(e) {
   const key = e.currentTarget;
